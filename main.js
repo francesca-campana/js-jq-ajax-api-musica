@@ -9,13 +9,43 @@ $(document).ready(function() {
       success: function(data){
 
         var cds = data.response;
+        console.log(cds)
         printCd(cds);
+        
+        $('.generi').change(function(){
+
+          var selectGenere = $(this).val();
+          if (selectGenere === '') {
+            $('.cds').fadeIn();
+
+          }else {
+            $('.cd').each(function(){
+              var singolGenere = $(this).attr('data-genere');
+              if (singolGenere.toLowerCase() === selectGenere.toLowerCase()) {
+                console.log(this);
+                $(this).fadeIn();
+              }else {
+                console.log(this);
+
+                $(this).fadeOut();
+              }
+
+            });
+
+          }
+
+
+
+
+        });
+
       },
 
       error: function(){
         alert('errore');
       }
     });
+
 
 //Stampo i cd a schermo attraverso una funzione che utilizzerò all'interno della chiamata ajax
     function printCd(listaCd){
@@ -30,5 +60,8 @@ $(document).ready(function() {
         $('.cds-container').append(html);
       }
     }
+//Utilizzo una select per filtrare i dischi per genere musicale e mostrare solo quelli selezionati
+
+
 
 });
